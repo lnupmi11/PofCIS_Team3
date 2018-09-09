@@ -1,5 +1,5 @@
 ## PMi-31
-## Team 1:
+## Team 3:
 * [Oleksandr Skorupskyy](https://github.com/AlexSkorupsky)
 * [Ivan Ternovyi](https://github.com/ivanternovyi)
 * [Oleg Zhuk](https://github.com/NSArray47)
