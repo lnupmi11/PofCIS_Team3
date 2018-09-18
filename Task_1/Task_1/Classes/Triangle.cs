@@ -6,6 +6,8 @@ namespace Task_1.Classes
     {
         private ColoredSide[] Sides = new ColoredSide[3];
         
+        public Triangle() {}        
+
         public Triangle(string color1, int length1, string color2, int length2, string color3, int length3)
         {
             Sides[0].Color = color1;
