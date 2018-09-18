@@ -4,13 +4,18 @@ namespace Task_1.Classes
 {
     public class Triangle
     {
-        private ColoredSide[] Sides;
-
-        public Triangle()
+        private ColoredSide[] Sides = new ColoredSide[3];
+        
+        public Triangle(string color1, int length1, string color2, int length2, string color3, int length3)
         {
-            this.Sides = new ColoredSide[3];
+            Sides[0].Color = color1;
+            Sides[0].Length = length1;
+            Sides[1].Color = color2;
+            Sides[1].Length = length2;
+            Sides[2].Color = color3;
+            Sides[2].Length = length3;
         }
-
+        
         public override string ToString()
         {
             string str = string.Empty;
