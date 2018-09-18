@@ -42,6 +42,12 @@ namespace Task_1.Classes
             File.AppendAllText(filename, $"{info}\n");
         }
 
+        public int Perimeter()
+        {
+            var res = Sides.Sum(side => side.Length);
+            return res;
+        }
+
         public override string ToString()
         {
             string str = string.Empty;

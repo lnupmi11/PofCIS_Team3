@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Task_1.Classes;
 
 namespace Task_1
@@ -9,20 +10,15 @@ namespace Task_1
     {
         public static void Main(string[] args)
         {
-            // Ex: white, 10, red, 2, green, 5 then another triangle write in the next line
 //            var arrTriangle = ReadData("data.txt");
-//            foreach (var triangle in arrTriangle)
-//            {
-//                Console.WriteLine(triangle);
-//                triangle.Save("info.txt");
-//            }
-           // Console.WriteLine(tr.Parse("white, 10, red, 2, green, 5"));
+//            SaveResultTask2(arrTriangle, "res2.txt");
             Console.ReadKey();
         }
 
-        public static IEnumerable<Triangle> ReadData(string filename)
+        public static SortedList<int, Triangle> ReadData(string filename)
         {
-            var res = new List<Triangle>();
+            // will be sorted by first value, in our case it`s perimeter
+            var res = new SortedList<int, Triangle>();
             string[] data;
             try
             {
@@ -36,10 +32,16 @@ namespace Task_1
             foreach (var line in data)
             {
                 var tempTriangle = new Triangle();
-                res.Add(tempTriangle.Parse(line));
+                res.Add(tempTriangle.Parse(line).Perimeter(), tempTriangle.Parse(line));
             }
 
             return res;
+        }
+
+        public static void SaveResultTask2(SortedList<int, Triangle> list, string filename)
+        {
+            var info = list.Aggregate(String.Empty, (current, elem) => current + string.Concat($"Perimeter: {elem.Key}", ", ", elem.Value, "\n"));
+            File.AppendAllText(filename, $"{info}\n");
         }
     }
 }
