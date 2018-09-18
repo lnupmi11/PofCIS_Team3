@@ -1,4 +1,7 @@
-﻿using Task_1.Structures;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Task_1.Structures;
 
 namespace Task_1.Classes
 {
@@ -18,7 +21,6 @@ namespace Task_1.Classes
             Sides[2].Length = length3;
         }
         
-        // TODO: add exception
         public Triangle Parse(string data)
         {
             var values = data.Split(',');
@@ -31,6 +33,13 @@ namespace Task_1.Classes
             }
 
             return this;
+        }
+
+        public void Save(string filename)
+        {
+            var info = Sides.Aggregate(String.Empty, (current, side) => current + string.Concat(side.Color, ", ", side.Length.ToString(), ", "));
+            info = info.Substring(0, info.Length - 2);
+            File.AppendAllText(filename, $"{info}\n");
         }
 
         public override string ToString()
