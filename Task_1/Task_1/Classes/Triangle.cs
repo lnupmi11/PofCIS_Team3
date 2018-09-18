@@ -18,6 +18,21 @@ namespace Task_1.Classes
             Sides[2].Length = length3;
         }
         
+        // TODO: add exception
+        public Triangle Parse(string data)
+        {
+            var values = data.Split(',');
+            var index = 0;
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                Sides[index].Color = values[i];
+                Sides[index].Length = int.Parse(values[i + 1]);
+                index++;
+            }
+
+            return this;
+        }
+
         public override string ToString()
         {
             string str = string.Empty;
