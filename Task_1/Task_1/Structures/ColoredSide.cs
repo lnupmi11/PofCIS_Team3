@@ -4,21 +4,7 @@ namespace Task_1.Structures
 {
     public struct ColoredSide : IColor
     {
-        private int length;
-        private string color;
-        public string Color
-        {
-            get
-            {
-                return color;
-            }
-        }
-        public int Length
-        {
-            get
-            {
-                return length;
-            }
-        }
+        public string Color { get; set; }
+        public int Length { get; set; }
     }
 }
