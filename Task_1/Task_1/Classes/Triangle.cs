@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Task_1.Structures;
@@ -57,5 +58,33 @@ namespace Task_1.Classes
             }
             return str;
         }
+        
+        public List<string> DistinctColors()
+        {
+            var cur = Sides.Select(i => i.Color).Distinct().ToList();
+            return cur;
+        }
+
+        public Triangle MakeUniqueColor() // repaints third edge, if two other have equal colors
+        {
+            var cur = DistinctColors();
+            if (cur.Count == 3 || cur.Count == 1)
+            {
+                return this;
+            }
+            
+            var majorColor = Sides.Select(i => i.Color).Where(i => i == cur[0]).ToList().Count == 2 ? cur[0] : cur[1];
+            
+            var res = this;
+
+            for (var i = 0; i < 3; ++i)
+            {
+                res.Sides[i].Color = majorColor;
+            }
+            
+            return res;
+
+        }
+        
     }
 }
