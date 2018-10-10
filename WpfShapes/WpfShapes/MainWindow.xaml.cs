@@ -176,6 +176,215 @@ namespace WpfShapes
             ClearExpectedBrokenLine();
             _currentMode = Mode.Moving;
         }
+        private void ProcessDrawingOfBrokenLine(object sender, MouseButtonEventArgs e)
+        {
+            if (_currentMode == Mode.Drawing)
+            {
+                if (_currentDrawingBrokenLine.Count < 6)
+                {
+                    var mousePos = e.GetPosition(DrawingPanel);
+                    for (var i = _currentDrawingBrokenLine.Count - 2; i > 0; i--)
+                    {
+                        if (Util.AreSidesIntersected(
+                            new System.Windows.Point(mousePos.X, mousePos.Y),
+                            new System.Windows.Point(
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 1].X,
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 1].Y),
+                            _expectedBrokenLine.Points[i],
+                            _expectedBrokenLine.Points[i - 1]))
+                        {
+                            return;
+                        }
+                    }
 
+                    for (var i = _currentDrawingBrokenLine.Count - 1; i >= 0; i--)
+                    {
+                        if (new System.Windows.Point(mousePos.X, mousePos.Y) == _expectedBrokenLine.Points[i])
+                        {
+                            return;
+                        }
+                    }
+
+                    if (_currentDrawingBrokenLine.Count == 5)
+                    {
+                        for (var i = _currentDrawingBrokenLine.Count - 2; i > 1; i--)
+                        {
+                            if (Util.AreSidesIntersected(
+                                new System.Windows.Point(mousePos.X, mousePos.Y),
+                                new System.Windows.Point(
+                                    _expectedBrokenLine.Points[0].X,
+                                    _expectedBrokenLine.Points[0].Y),
+                                _expectedBrokenLine.Points[i],
+                                _expectedBrokenLine.Points[i - 1]))
+                            {
+                                return;
+                            }
+                        }
+                    }
+
+                    if (_currentDrawingBrokenLine.Count > 2 && Util.Orientation(
+                            new System.Windows.Point(mousePos.X, mousePos.Y),
+                            new System.Windows.Point(
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 1].X,
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 1].Y),
+                            new System.Windows.Point(
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 1].X,
+                                _expectedBrokenLine.Points[_currentDrawingBrokenLine.Count - 2].Y))
+                        == 0)
+                    {
+                        return;
+                    }
+
+                    _currentDrawingBrokenLine.Add(new Point(mousePos.X, mousePos.Y));
+                    if (_expectedBrokenLine == null)
+                    {
+                        _expectedBrokenLine = new Polyline
+                        {
+                            Stroke = _currentBorderColor,
+                            Opacity = 1,
+                            StrokeThickness = 2
+                        };
+                        DrawingPanel.Children.Add(_expectedBrokenLine);
+                        _expectedLine = Util.GetLine(
+                            new Point(_currentDrawingBrokenLine[0].X, _currentDrawingBrokenLine[0].Y),
+                            new Point(mousePos.X, mousePos.Y),
+                            _currentBorderColor);
+                        _expectedLine.StrokeThickness = 2;
+                        DrawingPanel.Children.Add(_expectedLine);
+                    }
+
+                    _expectedBrokenLine.Points.Add(new System.Windows.Point(mousePos.X, mousePos.Y));
+                }
+
+                if (_currentDrawingBrokenLine.Count == 6)
+                {
+                    var hexagon = new BrokenLine(
+                        $"BrokenLine_{_currentChosenBrokenLineId + 1}",
+                        _currentDrawingBrokenLine,
+                        _currentFillColor,
+                        _currentBorderColor).ToPolygon();
+                    _currentChosenBrokenLineId++;
+                    _pictureIsSaved = false;
+                    hexagon.KeyDown += MoveBrokenLineWithKeys;
+                    DrawingPanel.Children.Add(brokenLine);
+                    Canvas.SetLeft(brokenLine, 0);
+                    Canvas.SetTop(brokenLine, 0);
+                    var newMenuItem = new MenuItem { Header = brokenLine.Name };
+                    newMenuItem.Click += SetCurrentBrokenLineFromMenu;
+                    ShapesMenu.Items.Add(newMenuItem);
+                    ClearExpectedBrokenLinen();
+                }
+            }
+        }
+        private void MoveBrokenLineWithKeys(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (Keyboard.IsKeyDown(Key.Escape))
+                {
+                    ClearExpectedBrokenLine();
+                }
+                else
+                {
+                    if (_currentMode == Mode.Moving && _currentChosenBrokenLineId > -1 && DrawingPanel.Children.Count > 0)
+                    {
+                        var newLoc = new System.Windows.Point(0, 0);
+                        if (Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Right))
+                        {
+                            newLoc.Y -= 5;
+                            newLoc.X += 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Left))
+                        {
+                            newLoc.Y -= 5;
+                            newLoc.X -= 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Right))
+                        {
+                            newLoc.Y += 5;
+                            newLoc.X += 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Left))
+                        {
+                            newLoc.Y += 5;
+                            newLoc.X -= 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Up))
+                        {
+                            newLoc.Y -= 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Right))
+                        {
+                            newLoc.X += 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Down))
+                        {
+                            newLoc.Y += 5;
+                        }
+                        else if (Keyboard.IsKeyDown(Key.Left))
+                        {
+                            newLoc.X -= 5;
+                        }
+
+                        if (!((DrawingPanel.Children[_currentChosenBrokenLineId] as Shape) is Polygon p))
+                        {
+                            throw new InvalidDataException("can't move null shape");
+                        }
+
+                        Canvas.SetLeft(p, Canvas.GetLeft(p) + newLoc.X);
+                        Canvas.SetTop(p, Canvas.GetTop(p) + newLoc.Y);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                FormBl.MessageBoxFatal(exc.ToString());
+            }
+        }
+        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_dragging && _currentMode == Mode.Moving)
+            {
+                if (!(_selectedPolygon is Polygon p))
+                {
+                    throw new InvalidDataException("selected shape is not Broken Line");
+                }
+
+                Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - _clickV.X);
+                Canvas.SetTop(p, e.GetPosition(DrawingPanel).Y - _clickV.Y);
+            }
+
+            if (_currentMode == Mode.Drawing)
+            {
+                var point = e.GetPosition(this);
+                _mouseLoc.X = point.X + 7;
+                _mouseLoc.Y = point.Y - 25;
+            }
+        }
+        private void MyPoly_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_currentChosenBrokenLineId > -1 && _currentMode == Mode.Moving)
+            {
+                for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
+                {
+                    _selectedPolygon = DrawingPanel.Children[i] as Shape;
+                    _clickV = e.GetPosition(_selectedPolygon);
+                    if (Util.PointIsInBrokenLine(new Point(_clickV.X, _clickV.Y), _selectedPolygon as Polygon))
+                    {
+                        _currentChosenBrokenLineId = i;
+                        _dragging = true;
+                        return;
+                    }
+                }
+            }
+        }
+        private void ClearExpectedBrokenLine()
+        {
+            _currentDrawingBrokenLine.Clear();
+            DrawingPanel.Children.Remove(_expectedBrokenLine);
+            DrawingPanel.Children.Remove(_expectedLine);
+            _expectedBrokenLine = null;
+            _expectedLine = null;
+        }
     }
 }
