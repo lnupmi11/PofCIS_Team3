@@ -10,14 +10,16 @@ using System.Net;
 
 namespace WpfShapes.Classes
 {
+	[Serializable]
 	public class BrokenLine
 	{
 		public class LineColor
 		{
+			[XmlAttribute]
 			public int R { get; set; }
-
+			[XmlAttribute]
 			public int G { get; set; }
-
+			[XmlAttribute]
 			public int B { get; set; }
 
 			public LineColor()
@@ -32,10 +34,11 @@ namespace WpfShapes.Classes
 			}
 		}
 		
+		[XmlAttribute]
 		public string Name { get; set; }
-
+		[XmlElement]
 		public LineColor ColorLine { get; set; }
-
+		[XmlArray("Points"), XmlArrayItem(typeof(Point), ElementName = "Point")]
 		public List<Point> Points { get; set; }
 
 		
