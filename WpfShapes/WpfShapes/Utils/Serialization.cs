@@ -22,9 +22,17 @@ namespace WpfShapes.Utils
         {
             var res = new List<BrokenLine>();
             var xml = new XmlSerializer(typeof(List<BrokenLine>));
-            using (var fs = new FileStream(filename, FileMode.Open))
+            try
             {
-                res = (List<BrokenLine>) xml.Deserialize(fs);
+                using (var fs = new FileStream(filename, FileMode.Open))
+                {
+                    res = (List<BrokenLine>) xml.Deserialize(fs);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
             return res;
         }
