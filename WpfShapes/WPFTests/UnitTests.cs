@@ -8,9 +8,18 @@ namespace WPFTests
     [TestClass]
     public class UnitTests
     {
+        /// <summary>
+        /// First coordinate of point
+        /// </summary>
         private const double firstPointCoordinate = 0.0;
+        /// <summary>
+        /// Second coordinate of point
+        /// </summary>
         private const double secondPointCoordinate = 1.0;
 
+        /// <summary>
+        /// OnSegment method test
+        /// </summary>
         [TestMethod]
         public void OnSegmentTestIsTrue()
         {
@@ -21,6 +30,9 @@ namespace WPFTests
             Assert.IsTrue(Util.OnSegment(firstPoint, secondPoint, thirdPoint));
         }
 
+        /// <summary>
+        /// OnSegment method test
+        /// </summary>
         [TestMethod]
         public void OnSegmentTestIsFalse()
         {
@@ -31,6 +43,9 @@ namespace WPFTests
             Assert.IsFalse(Util.OnSegment(firstPoint, secondPoint, thirdPoint));
         }
 
+        /// <summary>
+        /// Orientation method test
+        /// </summary>
         [TestMethod]
         public void OrientationTestAreEqual()
         {
@@ -41,6 +56,9 @@ namespace WPFTests
             Assert.AreEqual(Util.Orientation(firstPoint, secondPoint, thirdPoint), 0);
         }
 
+        /// <summary>
+        /// Point constructor test
+        /// </summary>
         [TestMethod]
         public void PointTestAreEqual()
         {
@@ -52,6 +70,9 @@ namespace WPFTests
             Assert.AreEqual(firstPoint.X, secondPoint.X);
         }
 
+        /// <summary>
+        /// ReadHexagons method test
+        /// </summary>
         [TestMethod]
         public void ReadHexagonsTestIsNull()
         {
