@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <DockPanel HorizontalAlignment="Left" Height="56" LastChildFill="False" VerticalAlignment="Top" Width="167"/>
+        <Menu HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="782">
+            <MenuItem Background="#FF939393" Header="File" Height="36" Width="49" FontSize="18" RenderTransformOrigin="1.085,1.369">
+                <MenuItem Header="Open"
+                          Click="OnOpenClick"/>
+                <MenuItem Header="Save"
+                          Click="OnSaveClick"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
