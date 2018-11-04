@@ -8,7 +8,7 @@ namespace WpfApp.Models
 {
     class TaxiDriver
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         public List<int> orderIds = new List<int>();
 

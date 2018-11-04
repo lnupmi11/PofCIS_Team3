@@ -8,11 +8,12 @@ namespace WpfApp.Models
 {
     class Order
     {
-        public int Id { get; private set; }
-        public double Price { get; private set; }
-        public string Time { get; private set; }
-        public string Destination { get; private set; }
-        public string Mobile { get; private set; }
+        public int Id { get; set; }
+        public double Price { get; set; }
+        public string Time { get; set; }
+        public string Destination { get; set; }
+        public string Mobile { get; set; }
+        public string Status { get; set; }
 
         public Order()
         {
