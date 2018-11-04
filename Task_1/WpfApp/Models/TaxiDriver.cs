@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfApp.Models
 {
-    class TaxiDriver
+    [Serializable]
+    public class TaxiDriver
     {
         public string Name { get; set; }
 

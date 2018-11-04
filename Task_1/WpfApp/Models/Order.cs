@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfApp.Models
 {
-    class Order
+    [Serializable]
+    public class Order
     {
+
         public int Id { get; set; }
         public double Price { get; set; }
         public string Time { get; set; }
@@ -23,12 +21,13 @@ namespace WpfApp.Models
             Mobile = "";
         }
 
-        public Order(int id, double price, string time, string destination, string mobile)
+        public Order(int id, double price, string time, string destination, string mobile, string status)
         {
             Id = id;
             Price = price;
             Time = time;
             Mobile = mobile;
+            Status = status;
         }
     }
 }
