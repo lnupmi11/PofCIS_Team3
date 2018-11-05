@@ -26,6 +26,7 @@ namespace WpfApp.Models
             Id = id;
             Price = price;
             Time = time;
+            Destination = destination;
             Mobile = mobile;
             Status = status;
         }

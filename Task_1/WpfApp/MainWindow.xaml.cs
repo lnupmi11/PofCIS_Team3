@@ -33,7 +33,12 @@ namespace WpfApp
 
             Seeds.Execute(ref drivers);
             Seeds.Execute(ref orders);
+                
+            allDrivers.ItemsSource = drivers;
+            allOrders.ItemsSource = orders.Where(i => i.Status != "already assigned").ToList();
 
+            nameText.Text = drivers.First().Name;
+            ordersText.Text = drivers.First().OrderIds;
         }
 
         private void OnOpenClick(object sender, RoutedEventArgs e)

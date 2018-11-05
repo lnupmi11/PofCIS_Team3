@@ -8,6 +8,14 @@ namespace WpfApp.Models
     {
         public string Name { get; set; }
 
+        public string OrderIds
+        {
+            get
+            {
+                return string.Join(", ", orderIds);
+            }
+        }
+
         public List<int> orderIds = new List<int>();
 
         public TaxiDriver()
