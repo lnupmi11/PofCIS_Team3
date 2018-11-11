@@ -8,6 +8,9 @@ namespace WpfApp.Models
     {
         public string Name { get; set; }
 
+        public int CountOfOrders { get; set; }
+
+        public List<int> orderIds = new List<int>();
         public string OrderIds
         {
             get
@@ -16,16 +19,15 @@ namespace WpfApp.Models
             }
         }
 
-        public List<int> orderIds = new List<int>();
-
         public TaxiDriver()
         {
             Name = "undefined";
         }
 
-        public TaxiDriver(string name, List<int> orders)
+        public TaxiDriver(string name, int count, List<int> orders)
         {
             Name = name;
+            CountOfOrders = count;
             orderIds = orders;
         }
     }
