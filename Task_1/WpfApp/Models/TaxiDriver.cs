@@ -6,6 +6,8 @@ namespace WpfApp.Models
     [Serializable]
     public class TaxiDriver
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int CountOfOrders { get; set; }
@@ -21,11 +23,13 @@ namespace WpfApp.Models
 
         public TaxiDriver()
         {
+            Id = 0;
             Name = "undefined";
         }
 
-        public TaxiDriver(string name, int count, List<int> orders)
+        public TaxiDriver(int id, string name, int count, List<int> orders)
         {
+            Id = id;
             Name = name;
             CountOfOrders = count;
             orderIds = orders;

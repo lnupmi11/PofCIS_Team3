@@ -5,8 +5,6 @@ namespace WpfApp.Models
     [Serializable]
     public class Order
     {
-
-
         public int Id { get; set; }
         public double Price { get; set; }
         public string Time { get; set; }
