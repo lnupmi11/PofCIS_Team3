@@ -34,5 +34,16 @@ namespace WpfApp.Models
             CountOfOrders = count;
             orderIds = orders;
         }
+
+        public override string ToString()
+        {
+            string s = String.Format("{0} {1} {2}", Id, Name, CountOfOrders);
+            for (int i = 0; i < CountOfOrders; i++)
+            {
+                s += orderIds[i];
+                s += " ";
+            }
+            return s;
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace WpfApp.Utils
         {
             List<TaxiDriver> init_drivers = new List<TaxiDriver>()
             {
-                new TaxiDriver("Petro",  new List<int>() { 5, 6 } ),
-                new TaxiDriver("Vasyl",  new List<int>() { 1, 7 } )
+                new TaxiDriver(1, "Petro", 2,  new List<int>() { 5, 6 } ),
+                new TaxiDriver(2, "Vasyl", 2,  new List<int>() { 1, 7 } )
             };
 
             driversArr.AddRange(init_drivers);
