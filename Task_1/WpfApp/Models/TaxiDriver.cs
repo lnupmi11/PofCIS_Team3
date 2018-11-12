@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace WpfApp.Models
 {
+    /// <summary>
+	/// Taxi driver class.
+	/// </summary>
     [Serializable]
     public class TaxiDriver
     {
@@ -21,6 +24,9 @@ namespace WpfApp.Models
             }
         }
 
+        /// <summary>
+        /// Constructors of taxi driver class.
+        /// </summary>
         public TaxiDriver()
         {
             Id = 0;
@@ -35,6 +41,9 @@ namespace WpfApp.Models
             orderIds = orders;
         }
 
+        /// <summary>
+        /// Overrided ToString method.
+        /// </summary>
         public override string ToString()
         {
             string s = String.Format("{0} {1} {2}", Id, Name, CountOfOrders);

@@ -2,6 +2,9 @@
 
 namespace WpfApp.Models
 {
+    /// <summary>
+	/// Order class.
+	/// </summary>
     [Serializable]
     public class Order
     {
@@ -12,6 +15,9 @@ namespace WpfApp.Models
         public string Mobile { get; set; }
         public string Status { get; set; }
 
+        /// <summary>
+        /// Constructors of order class.
+        /// </summary>
         public Order()
         {
             Id = 0;
@@ -30,6 +36,9 @@ namespace WpfApp.Models
             Status = status;
         }
 
+        /// <summary>
+        /// Overrided ToString method.
+        /// </summary>
         public override string ToString()
         {
             return String.Format("{0} {1} {2} {3} {4} {5}", Id, Price, Time, Destination, Mobile, Status);

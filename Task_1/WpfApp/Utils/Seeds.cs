@@ -7,8 +7,16 @@ using WpfApp.Models;
 
 namespace WpfApp.Utils
 {
+
+    /// <summary>
+    /// Seeds class.
+    /// </summary>
     public class Seeds
     {
+        /// <summary>
+        /// Method to check the correctness of the execution.
+        /// </summary>
+        /// <param name="driversArr">List of taxi drivers.</param>
         public static void Execute(ref List<TaxiDriver> driversArr)
         {
             List<TaxiDriver> init_drivers = new List<TaxiDriver>()
@@ -20,6 +28,10 @@ namespace WpfApp.Utils
             driversArr.AddRange(init_drivers);
         }
 
+        /// <summary>
+        /// Method to check the correctness of the execution.
+        /// </summary>
+        /// <param name="ordersArr">List of orders.</param>
         public static void Execute(ref List<Order> ordersArr)
         {
             List<Order> init_orders = new List<Order>()

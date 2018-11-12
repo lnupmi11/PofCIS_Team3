@@ -41,6 +41,9 @@ namespace WpfApp
             ordersText.Text = drivers.First().OrderIds;
         }
 
+        /// <summary>
+        /// Method to open file from file dialog.
+        /// </summary>
         private void OnOpenClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -48,6 +51,9 @@ namespace WpfApp
                 drivers = (List<TaxiDriver>) Serialization.DeserializeDrivers(openFileDialog.FileName);
         }
 
+        /// <summary>
+        /// Method to save file in file dialog menu.
+        /// </summary>
         private void OnSaveClick(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

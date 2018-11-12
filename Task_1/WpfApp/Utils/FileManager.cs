@@ -8,6 +8,10 @@ using WpfApp.Models;
 
 namespace WpfApp.Utils
 {
+
+    /// <summary>
+	/// File manager class.
+	/// </summary>
     class FileManager
     {
         private readonly string driversFile;
@@ -16,6 +20,11 @@ namespace WpfApp.Utils
         public List<TaxiDriver> TaxiDrivers { get; set; }
         public List<Order> Orders { get; set; }
 
+        /// <summary>
+        /// Constructor of file manager class.
+        /// </summary>
+        /// <param name="df">Drivers file.</param>
+        /// <param name="of">Orders file.</param>
         public FileManager(string df, string of)
         {
             driversFile = df;
@@ -24,6 +33,9 @@ namespace WpfApp.Utils
             Orders = new List<Order>();
         }
 
+        /// <summary>
+        /// Method to read orders from file.
+        /// </summary>
         public void ReadOrders()
         {
             string[] ordersString = File.ReadAllLines(ordersFile);
@@ -34,6 +46,9 @@ namespace WpfApp.Utils
             }
         }
 
+        /// <summary>
+        /// Method to write orders to file.
+        /// </summary>
         public void WriteOrders()
         {
             using (StreamWriter writer = new StreamWriter(ordersFile))
@@ -45,11 +60,14 @@ namespace WpfApp.Utils
             }
         }
 
-        public void ChangeOrder(Order o)
+        /// <summary>
+        /// Method to change order by id.
+        /// </summary>
+        public void ChangeOrder(int id, Order o)
         {
             for (int i = 0; i < Orders.Count; i++)
             {
-                if (Orders[i].Id == o.Id)
+                if (Orders[i].Id == id)
                 {
                     Orders[i] = o;
                     break;
@@ -57,6 +75,9 @@ namespace WpfApp.Utils
             }
         }
 
+        /// <summary>
+        /// Method to read drivers from file.
+        /// </summary>
         public void ReadDrivers()
         {
             string[] driversString = File.ReadAllLines(driversFile);
@@ -75,6 +96,9 @@ namespace WpfApp.Utils
             }
         }
 
+        /// <summary>
+        /// Method to write drivers to file.
+        /// </summary>
         public void WriteDrivers()
         {
             using (StreamWriter writer = new StreamWriter(driversFile))
@@ -86,11 +110,15 @@ namespace WpfApp.Utils
             }
         }
 
-        public void ChangeDriver(TaxiDriver td)
+
+        /// <summary>
+        /// Method to change driver by id.
+        /// </summary>
+        public void ChangeDriver(int id, TaxiDriver td)
         {
             for (int i = 0; i < TaxiDrivers.Count; i++)
             {
-                if (TaxiDrivers[i].Id == td.Id)
+                if (TaxiDrivers[i].Id == id)
                 {
                     TaxiDrivers[i] = td;
                     break;
