@@ -40,6 +40,15 @@ namespace WpfApp.Models
             CountOfOrders = count;
             orderIds = orders;
         }
+        /// <summary>
+        /// Assign order to the driver's orders list.
+        /// </summary>
+        /// <param name="or">Order to be assigned.</param>
+        public void AssignOrder(Order or)
+        {
+            CountOfOrders++;
+            orderIds.Add(or.Id);
+        }
 
         /// <summary>
         /// Overrided ToString method.
@@ -54,5 +63,6 @@ namespace WpfApp.Models
             }
             return s;
         }
+        
     }
 }

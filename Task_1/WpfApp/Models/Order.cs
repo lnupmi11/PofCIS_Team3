@@ -37,6 +37,20 @@ namespace WpfApp.Models
         }
 
         /// <summary>
+        /// Set's status to already assigned.
+        /// </summary>
+        public void GetAssigned()
+        {
+            if (Status != "not assigned")
+            {
+                throw new Exception("Order was already assigned or done!"); 
+            }
+            Status = "already assigned";
+        
+        }
+        
+
+        /// <summary>
         /// Overrided ToString method.
         /// </summary>
         public override string ToString()

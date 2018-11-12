@@ -92,5 +92,15 @@ namespace WpfApp.BL
             }
             return rez;
         }
+        /// <summary>
+        /// Method to conect order and the driver.
+        /// </summary>
+        /// <param name="or">Reference to the order.</param>
+        /// <param name="dr">Reference to the driver.</param>
+        public void ConectOrderAndDriver(ref Order or, ref TaxiDriver dr)
+        {
+            or.GetAssigned();
+            dr.AssignOrder(or);
+        }
     }
 }
