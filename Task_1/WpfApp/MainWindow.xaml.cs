@@ -15,13 +15,22 @@
         private List<TaxiDriver> drivers = new List<TaxiDriver>();
         private List<Order> orders = new List<Order>();
 
+        private TaxiDriver selectedTaxiDriver;
+
         public MainWindow()
         {
             this.InitializeComponent();
 
             Seeds.Execute(ref this.drivers);
             Seeds.Execute(ref this.orders);
+
             this.UpdateDriversUI();
+            if (this.drivers.Count != 0)
+            {
+                this.selectedTaxiDriver = this.drivers.First();
+                this.UpdateSelectedDriverUI();
+            }
+
             this.UpdateOrdersUI();
         }
 
@@ -37,6 +46,11 @@
             {
                 this.drivers = (List<TaxiDriver>)Serialization.DeserializeDrivers(openFileDialog.FileName);
                 this.UpdateDriversUI();
+                if (this.drivers.Count != 0)
+                {
+                    this.selectedTaxiDriver = this.drivers.First();
+                    this.UpdateSelectedDriverUI();
+                }
             }
         }
 
@@ -87,16 +101,26 @@
             }
         }
 
+        /// <summary>
+        /// Method to update all drivers UI.
+        /// </summary>
         private void UpdateDriversUI()
         {
             this.allDrivers.ItemsSource = this.drivers;
-            if (this.drivers.Count != 0)
-            {
-                this.nameText.Text = this.drivers.First().Name;
-                this.ordersText.Text = this.drivers.First().OrderIds;
-            }
         }
 
+        /// <summary>
+        /// Method to update selected driver UI.
+        /// </summary>
+        private void UpdateSelectedDriverUI()
+        {
+            this.nameText.Text = this.selectedTaxiDriver.Name;
+            this.ordersText.Text = this.selectedTaxiDriver.OrderIds;
+        }
+
+        /// <summary>
+        /// Method to update orders UI.
+        /// </summary>
         private void UpdateOrdersUI()
         {
             this.allOrders.ItemsSource = this.orders.Where(i => i.Status != "already assigned").ToList();
