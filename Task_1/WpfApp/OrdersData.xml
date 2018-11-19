@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <Id>6</Id>
+    <Price>35</Price>
+    <Time>1hr 2min</Time>
+    <Destination>shop</Destination>
+    <Mobile>+23424</Mobile>
+    <Status>done</Status>
+  </Order>
+  <Order>
+    <Id>1</Id>
+    <Price>80</Price>
+    <Time>12hr 32min</Time>
+    <Destination>university</Destination>
+    <Mobile>+12341</Mobile>
+    <Status>already assigned</Status>
+  </Order>
+  <Order>
+    <Id>5</Id>
+    <Price>160</Price>
+    <Time>15hr 46min</Time>
+    <Destination>stadium</Destination>
+    <Mobile>+512341</Mobile>
+    <Status>already assigned</Status>
+  </Order>
+  <Order>
+    <Id>7</Id>
+    <Price>120</Price>
+    <Time>3hr 54min</Time>
+    <Destination>center</Destination>
+    <Mobile>+9234</Mobile>
+    <Status>already assigned</Status>
+  </Order>
+  <Order>
+    <Id>2</Id>
+    <Price>120</Price>
+    <Time>17hr 00min</Time>
+    <Destination>Forum</Destination>
+    <Mobile>+83234</Mobile>
+    <Status>not assigned</Status>
+  </Order>
+  <Order>
+    <Id>3</Id>
+    <Price>120</Price>
+    <Time>14hr 23min</Time>
+    <Destination>Horodotska 20</Destination>
+    <Mobile>+52342</Mobile>
+    <Status>not assigned</Status>
+  </Order>
+</ArrayOfOrder>

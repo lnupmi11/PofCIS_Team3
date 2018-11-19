@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ArrayOfTaxiDriver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaxiDriver>
+    <orderIds>
+      <int>5</int>
+      <int>6</int>
+    </orderIds>
+    <Id>1</Id>
+    <Name>Volodymyr</Name>
+    <CountOfOrders>2</CountOfOrders>
+  </TaxiDriver>
+  <TaxiDriver>
+    <orderIds>
+      <int>1</int>
+      <int>7</int>
+    </orderIds>
+    <Id>2</Id>
+    <Name>Vasyl</Name>
+    <CountOfOrders>2</CountOfOrders>
+  </TaxiDriver>
+</ArrayOfTaxiDriver>
