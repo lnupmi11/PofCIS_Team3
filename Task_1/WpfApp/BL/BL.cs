@@ -11,7 +11,7 @@ namespace WpfApp.BL
     /// <summary>
     /// Business logic class.
     /// </summary>
-    class BL
+    public class BL
     {
 
         public List<TaxiDriver> TaxiDrivers { get; set; }
