@@ -10,10 +10,14 @@
         <DockPanel HorizontalAlignment="Left" Height="56" LastChildFill="False" VerticalAlignment="Top" Width="167"/>
         <Menu HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="782">
             <MenuItem Background="#FF939393" Header="File" Height="28" Width="57" FontSize="18" RenderTransformOrigin="1.085,1.369">
-                <MenuItem Header="Open"
-                          Click="OnOpenClick"/>
-                <MenuItem Header="Save"
-                          Click="OnSaveClick"/>
+                <MenuItem Header="OpenDrivers"
+                          Click="OnOpenDriversClick"/>
+                <MenuItem Header="SaveDrivers"
+                          Click="OnSaveDriversClick"/>
+                <MenuItem Header="OpenOrders"
+                    Click="OnOpenOrdersClick"/>
+                <MenuItem Header="SaveOrders"
+                    Click="OnSaveOrdersClick"/>
             </MenuItem>
         </Menu>
         <TabControl HorizontalAlignment="Left" Height="384" Margin="0,33,0,0" VerticalAlignment="Top" Width="782" RenderTransformOrigin="-1.014,-0.2">

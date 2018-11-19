@@ -1,66 +1,105 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WpfApp.Models;
-using WpfApp.Utils;
-
-namespace WpfApp
+﻿namespace WpfApp
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using Microsoft.Win32;
+    using WpfApp.Models;
+    using WpfApp.Utils;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<TaxiDriver> drivers = new List<TaxiDriver>();
-        List<Order> orders = new List<Order>();
+        private List<TaxiDriver> drivers = new List<TaxiDriver>();
+        private List<Order> orders = new List<Order>();
 
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            Seeds.Execute(ref drivers);
-            Seeds.Execute(ref orders);
-                
-            allDrivers.ItemsSource = drivers;
-            allOrders.ItemsSource = orders.Where(i => i.Status != "already assigned").ToList();
-
-            nameText.Text = drivers.First().Name;
-            ordersText.Text = drivers.First().OrderIds;
+            Seeds.Execute(ref this.drivers);
+            Seeds.Execute(ref this.orders);
+            this.UpdateDriversUI();
+            this.UpdateOrdersUI();
         }
 
         /// <summary>
-        /// Method to open file from file dialog.
+        /// Method to open file with drivers from file dialog
         /// </summary>
-        private void OnOpenClick(object sender, RoutedEventArgs e)
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">RoutedEventArgs</param>
+        private void OnOpenDriversClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
-                drivers = (List<TaxiDriver>) Serialization.DeserializeDrivers(openFileDialog.FileName);
+            {
+                this.drivers = (List<TaxiDriver>)Serialization.DeserializeDrivers(openFileDialog.FileName);
+                this.UpdateDriversUI();
+            }
         }
 
         /// <summary>
-        /// Method to save file in file dialog menu.
+        /// Method to save file with drivers in file dialog menu.
         /// </summary>
-        private void OnSaveClick(object sender, RoutedEventArgs e)
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">RoutedEventArgs</param>
+        private void OnSaveDriversClick(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "XML file (*.xml) | *.xml";
-            
+
             if (saveFileDialog.ShowDialog() == true)
-                Serialization.Serialize(saveFileDialog.FileName, drivers);
+            {
+                Serialization.Serialize(saveFileDialog.FileName, this.drivers);
+            }
+        }
+
+        /// <summary>
+        /// Method to open file with orders from file dialog
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">RoutedEventArgs</param>
+        private void OnOpenOrdersClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                this.orders = (List<Order>)Serialization.DeserializeOrders(openFileDialog.FileName);
+                this.UpdateOrdersUI();
+            }
+        }
+
+        /// <summary>
+        /// Method to save file with orders in file dialog menu.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">RoutedEventArgs</param>
+        private void OnSaveOrdersClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XML file (*.xml) | *.xml";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                Serialization.Serialize(saveFileDialog.FileName, this.orders);
+            }
+        }
+
+        private void UpdateDriversUI()
+        {
+            this.allDrivers.ItemsSource = this.drivers;
+            if (this.drivers.Count != 0)
+            {
+                this.nameText.Text = this.drivers.First().Name;
+                this.ordersText.Text = this.drivers.First().OrderIds;
+            }
+        }
+
+        private void UpdateOrdersUI()
+        {
+            this.allOrders.ItemsSource = this.orders.Where(i => i.Status != "already assigned").ToList();
         }
     }
 }
