@@ -13,7 +13,6 @@ namespace WpfApp.BL
     /// </summary>
     public class BL
     {
-
         public List<TaxiDriver> TaxiDrivers { get; set; }
         public List<Order> Orders { get; set; }
 

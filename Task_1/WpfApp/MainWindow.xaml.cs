@@ -168,5 +168,29 @@
                 this.UpdateSelectedDriverUI();
             }
         }
+
+        /// <summary>
+        /// Method to select not assigned order.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">RoutedEventArgs.</param>
+        private void OnAsignRandomOrderButtonClick(object sender, RoutedEventArgs e)
+        {
+            BL.BL bl = new BL.BL();
+            bl.TaxiDrivers = this.drivers;
+            bl.Orders = this.orders;
+            List<Order> freeOrders = bl.FindOrderByStatus("not assigned");
+            if (freeOrders.Count != 0)
+            {
+                Order freeOrder = freeOrders[0];
+                this.selectedTaxiDriver.AssignOrder(freeOrder);
+
+                freeOrder.Status = "already assigned";
+
+                this.UpdateDriversUI();
+                this.UpdateSelectedDriverUI();
+                this.UpdateOrdersUI();
+            }
+        }
     }
 }
