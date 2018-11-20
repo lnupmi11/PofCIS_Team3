@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp.Models;
-
-namespace WpfApp.BL
+﻿namespace WpfApp.BL
 {
+    using System.Collections.Generic;
+    using WpfApp.Models;
 
     /// <summary>
     /// Business logic class.
@@ -14,17 +9,18 @@ namespace WpfApp.BL
     public class BL
     {
         public List<TaxiDriver> TaxiDrivers { get; set; }
+
         public List<Order> Orders { get; set; }
 
         /// <summary>
-		/// Method to find driver by Id.
-		/// </summary>
-		/// <param name="id">Driver's id.</param>
-		/// <returns>Taxi driver type.</returns>
+        /// Method to find driver by Id.
+        /// </summary>
+        /// <param name="id">Driver's id.</param>
+        /// <returns>Taxi driver type.</returns>
         public TaxiDriver FindTaxiDriverById(int id)
         {
             TaxiDriver rez = new TaxiDriver();
-            foreach (TaxiDriver td in TaxiDrivers)
+            foreach (TaxiDriver td in this.TaxiDrivers)
             {
                 if (td.Id == id)
                 {
@@ -32,18 +28,19 @@ namespace WpfApp.BL
                     break;
                 }
             }
+
             return rez;
         }
 
         /// <summary>
-		/// Method to find driver by Name.
-		/// </summary>
-		/// <param name="name">Driver's name.</param>
-		/// <returns>Taxi driver type.</returns>
+        /// Method to find driver by Name.
+        /// </summary>
+        /// <param name="name">Driver's name.</param>
+        /// <returns>Taxi driver type.</returns>
         public TaxiDriver FindTaxiDriverByName(string name)
         {
             TaxiDriver rez = new TaxiDriver();
-            foreach (TaxiDriver td in TaxiDrivers)
+            foreach (TaxiDriver td in this.TaxiDrivers)
             {
                 if (td.Name == name)
                 {
@@ -51,18 +48,19 @@ namespace WpfApp.BL
                     break;
                 }
             }
+
             return rez;
         }
 
         /// <summary>
-		/// Method to find order by Id.
-		/// </summary>
-		/// <param name="id">Order's Id.</param>
-		/// <returns>Order type.</returns>
+        /// Method to find order by Id.
+        /// </summary>
+        /// <param name="id">Order's Id.</param>
+        /// <returns>Order type.</returns>
         public Order FindOrderById(int id)
         {
             Order rez = new Order();
-            foreach (Order o in Orders)
+            foreach (Order o in this.Orders)
             {
                 if (o.Id == id)
                 {
@@ -70,6 +68,7 @@ namespace WpfApp.BL
                     break;
                 }
             }
+
             return rez;
         }
 
@@ -81,7 +80,7 @@ namespace WpfApp.BL
         public List<Order> FindOrderByStatus(string status)
         {
             List<Order> rez = new List<Order>();
-            foreach (Order o in Orders)
+            foreach (Order o in this.Orders)
             {
                 if (o.Status == status)
                 {
@@ -89,8 +88,10 @@ namespace WpfApp.BL
                     break;
                 }
             }
+
             return rez;
         }
+
         /// <summary>
         /// Method to conect order and the driver.
         /// </summary>

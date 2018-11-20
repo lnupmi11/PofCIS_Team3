@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp.Models;
-
-namespace WpfApp.Utils
+﻿namespace WpfApp.Utils
 {
+    using System.Collections.Generic;
+    using WpfApp.Models;
 
     /// <summary>
     /// Seeds class.
@@ -21,8 +16,8 @@ namespace WpfApp.Utils
         {
             List<TaxiDriver> init_drivers = new List<TaxiDriver>()
             {
-                new TaxiDriver(1, "Petro", 2,  new List<int>() { 5, 6 } ),
-                new TaxiDriver(2, "Vasyl", 2,  new List<int>() { 1, 7 } )
+                new TaxiDriver(1, "Petro", 2,  new List<int>() { 5, 6 }),
+                new TaxiDriver(2, "Vasyl", 2,  new List<int>() { 1, 7 })
             };
 
             driversArr.AddRange(init_drivers);

@@ -1,48 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp.Models;
-
-namespace WpfApp.Utils
+﻿namespace WpfApp.Utils
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using WpfApp.Models;
 
     /// <summary>
-	/// File manager class.
-	/// </summary>
-    class FileManager
+    /// File manager class.
+    /// </summary>
+    public class FileManager
     {
         private readonly string driversFile;
         private readonly string ordersFile;
 
-        public List<TaxiDriver> TaxiDrivers { get; set; }
-        public List<Order> Orders { get; set; }
-
-        /// <summary>
-        /// Constructor of file manager class.
-        /// </summary>
-        /// <param name="df">Drivers file.</param>
-        /// <param name="of">Orders file.</param>
         public FileManager(string df, string of)
         {
-            driversFile = df;
-            ordersFile = of;
-            TaxiDrivers = new List<TaxiDriver>();
-            Orders = new List<Order>();
+            this.driversFile = df;
+            this.ordersFile = of;
+            this.TaxiDrivers = new List<TaxiDriver>();
+            this.Orders = new List<Order>();
         }
+
+        public List<TaxiDriver> TaxiDrivers { get; set; }
+
+        public List<Order> Orders { get; set; }
 
         /// <summary>
         /// Method to read orders from file.
         /// </summary>
         public void ReadOrders()
         {
-            string[] ordersString = File.ReadAllLines(ordersFile);
+            string[] ordersString = File.ReadAllLines(this.ordersFile);
             foreach (string line in ordersString)
             {
                 string[] order = line.Split(' ');
-                Orders.Add(new Order(Convert.ToInt32(order[0]), Convert.ToDouble(order[1]), order[2], order[3], order[4], order[5]));
+                this.Orders.Add(new Order(Convert.ToInt32(order[0]), Convert.ToDouble(order[1]), order[2], order[3], order[4], order[5]));
             }
         }
 
@@ -51,9 +43,9 @@ namespace WpfApp.Utils
         /// </summary>
         public void WriteOrders()
         {
-            using (StreamWriter writer = new StreamWriter(ordersFile))
+            using (StreamWriter writer = new StreamWriter(this.ordersFile))
             {
-                foreach (Order order in Orders)
+                foreach (Order order in this.Orders)
                 {
                     writer.WriteLine(order);
                 }
@@ -63,13 +55,15 @@ namespace WpfApp.Utils
         /// <summary>
         /// Method to change order by id.
         /// </summary>
+        /// <param name="id">ID</param>
+        /// <param name="o">Order</param>
         public void ChangeOrder(int id, Order o)
         {
-            for (int i = 0; i < Orders.Count; i++)
+            for (int i = 0; i < this.Orders.Count; i++)
             {
-                if (Orders[i].Id == id)
+                if (this.Orders[i].Id == id)
                 {
-                    Orders[i] = o;
+                    this.Orders[i] = o;
                     break;
                 }
             }
@@ -80,7 +74,7 @@ namespace WpfApp.Utils
         /// </summary>
         public void ReadDrivers()
         {
-            string[] driversString = File.ReadAllLines(driversFile);
+            string[] driversString = File.ReadAllLines(this.driversFile);
             foreach (string line in driversString)
             {
                 string[] taxiDriver = line.Split(' ');
@@ -92,7 +86,8 @@ namespace WpfApp.Utils
                 {
                     ords.Add(Convert.ToInt32(taxiDriver[i + 3]));
                 }
-                TaxiDrivers.Add(new TaxiDriver(id, taxiDriverName, count, ords));
+
+                this.TaxiDrivers.Add(new TaxiDriver(id, taxiDriverName, count, ords));
             }
         }
 
@@ -101,26 +96,27 @@ namespace WpfApp.Utils
         /// </summary>
         public void WriteDrivers()
         {
-            using (StreamWriter writer = new StreamWriter(driversFile))
+            using (StreamWriter writer = new StreamWriter(this.driversFile))
             {
-                foreach (TaxiDriver taxiDriver in TaxiDrivers)
+                foreach (TaxiDriver taxiDriver in this.TaxiDrivers)
                 {
                     writer.WriteLine(taxiDriver);
                 }
             }
         }
 
-
         /// <summary>
         /// Method to change driver by id.
         /// </summary>
+        /// <param name="id">ID</param>
+        /// <param name="td">TaxiDriver</param>
         public void ChangeDriver(int id, TaxiDriver td)
         {
-            for (int i = 0; i < TaxiDrivers.Count; i++)
+            for (int i = 0; i < this.TaxiDrivers.Count; i++)
             {
-                if (TaxiDrivers[i].Id == id)
+                if (this.TaxiDrivers[i].Id == id)
                 {
-                    TaxiDrivers[i] = td;
+                    this.TaxiDrivers[i] = td;
                     break;
                 }
             }

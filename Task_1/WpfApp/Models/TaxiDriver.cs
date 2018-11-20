@@ -1,14 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WpfApp.Models
+﻿namespace WpfApp.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
-	/// Taxi driver class.
-	/// </summary>
+    /// Taxi driver class.
+    /// </summary>
     [Serializable]
     public class TaxiDriver
     {
+        public TaxiDriver()
+        {
+            this.Id = 0;
+            this.Name = "undefined";
+        }
+
+        public TaxiDriver(int id, string name, int count, List<int> orders)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.CountOfOrders = count;
+            this.orderIds = orders;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -16,53 +30,39 @@ namespace WpfApp.Models
         public int CountOfOrders { get; set; }
 
         public List<int> orderIds = new List<int>();
+
         public string OrderIds
         {
             get
             {
-                return string.Join(", ", orderIds);
+                return string.Join(", ", this.orderIds);
             }
         }
 
-        /// <summary>
-        /// Constructors of taxi driver class.
-        /// </summary>
-        public TaxiDriver()
-        {
-            Id = 0;
-            Name = "undefined";
-        }
-
-        public TaxiDriver(int id, string name, int count, List<int> orders)
-        {
-            Id = id;
-            Name = name;
-            CountOfOrders = count;
-            orderIds = orders;
-        }
         /// <summary>
         /// Assign order to the driver's orders list.
         /// </summary>
         /// <param name="or">Order to be assigned.</param>
         public void AssignOrder(Order or)
         {
-            CountOfOrders++;
-            orderIds.Add(or.Id);
+            this.CountOfOrders++;
+            this.orderIds.Add(or.Id);
         }
 
         /// <summary>
         /// Overrided ToString method.
         /// </summary>
+        /// <returns>String.</returns>
         public override string ToString()
         {
-            string s = String.Format("{0} {1} {2}", Id, Name, CountOfOrders);
-            for (int i = 0; i < CountOfOrders; i++)
+            string s = string.Format("{0} {1} {2}", this.Id, this.Name, this.CountOfOrders);
+            for (int i = 0; i < this.CountOfOrders; i++)
             {
                 s += " ";
-                s += orderIds[i];
+                s += this.orderIds[i];
             }
+
             return s;
         }
-        
     }
 }
