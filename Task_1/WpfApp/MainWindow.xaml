@@ -52,6 +52,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Button Content="Select driver" Grid.Column="1" HorizontalAlignment="Left" Margin="275.8,10,0,0" VerticalAlignment="Top" Width="143" Height="57" FontSize="22" Click="OnSelectDriverButtonClick"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Orders">
@@ -75,6 +76,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Button Content="AsignOrder" Grid.Column="3" HorizontalAlignment="Left" Margin="326.2,10,0,0" VerticalAlignment="Top" Width="131" Height="52" FontSize="20" Click="OnAsignOrderButtonClick"/>
                 </Grid>
             </TabItem>
         </TabControl>
