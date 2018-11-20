@@ -1,8 +1,10 @@
 ﻿namespace WpfApp
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Data;
     using Microsoft.Win32;
     using WpfApp.Models;
     using WpfApp.Utils;
@@ -107,6 +109,8 @@
         private void UpdateDriversUI()
         {
             this.allDrivers.ItemsSource = this.drivers;
+            ICollectionView view = CollectionViewSource.GetDefaultView(this.allDrivers.ItemsSource);
+            view.Refresh();
         }
 
         /// <summary>
