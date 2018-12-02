@@ -4,13 +4,13 @@ using System.Data.SqlClient;
 
 namespace ADO.NET.Database
 {
-    internal class Database
+    internal class DatabaseConnection
     {
         private readonly string connectionString;
 
         private SqlConnection connection;
 
-        public Database(string connectionString)
+        public DatabaseConnection(string connectionString)
         {
             this.connectionString = connectionString;
         }
