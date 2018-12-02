@@ -10,18 +10,6 @@ namespace ADO.NET
 
     internal class Program
     {
-        /// <summary>
-        /// Connection string.
-        /// </summary>
-
-        /// <summary>
-        /// Database connection instance.
-        /// </summary>
-        
-        /// <summary>
-        /// Method that imlements fourth query.
-        /// </summary>
-        
         private static void Main(string[] args)
         {
             Console.WriteLine("Type-in query index:\n");
