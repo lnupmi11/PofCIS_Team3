@@ -11,7 +11,7 @@ namespace ADO.NET
             string connectionString = ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            Console.WriteLine("All last names of the employees in Northwind");
+            Console.WriteLine("All last names of the employees");
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT LastName FROM Employees;";
             SqlDataReader reader = command.ExecuteReader();
