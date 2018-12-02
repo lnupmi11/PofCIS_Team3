@@ -10,9 +10,19 @@ namespace ADO.NET
 
     internal class Program
     {
+        /// <summary>
+        /// Connection string.
+        /// </summary>
         private string connectionString = ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
+
+        /// <summary>
+        /// SQLConnection to database.
+        /// </summary>
         private SqlConnection connection;
 
+        /// <summary>
+        /// Method that imlements fourth query.
+        /// </summary>
         private void FourthQuery()
         {
             Console.WriteLine("First, Last names and Ages of the employees with age greater 55");
@@ -32,6 +42,9 @@ namespace ADO.NET
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Method that imlements sixth query.
+        /// </summary>
         private void SixthQuery()
         {
             Console.WriteLine("Max, Avg, Min age of the employees in London");
@@ -53,6 +66,9 @@ namespace ADO.NET
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Method that imlements seventh query.
+        /// </summary>
         private void SeventhQuery()
         {
             Console.WriteLine("Max, Avg, Min age of the employees for each city");
@@ -74,6 +90,9 @@ namespace ADO.NET
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Method that imlements Eighth query.
+        /// </summary>
         private void EighthQuery()
         {
             Console.WriteLine("AverageAge and City of the employees where average age is greater 60");
@@ -95,6 +114,9 @@ namespace ADO.NET
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Method that imlements ninth query.
+        /// </summary>
         private void NinthQuery()
         {
             Console.WriteLine("First and Last names of the oldest employees");
