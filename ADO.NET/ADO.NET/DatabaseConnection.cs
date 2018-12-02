@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-
-namespace ADO.NET.Database
+﻿namespace ADO.NET
 {
+    using System.Data;
+    using System.Data.SqlClient;
+
     internal class DatabaseConnection
     {
         private readonly string connectionString;
@@ -15,6 +14,8 @@ namespace ADO.NET.Database
             this.connectionString = connectionString;
         }
 
+        public SqlConnection Connection { get { return this.connection; } }
+
         public bool Connect()
         {
             this.connection = new SqlConnection(this.connectionString);
@@ -23,6 +24,7 @@ namespace ADO.NET.Database
             {
                 return true;
             }
+
             return false;
         }
 
@@ -32,6 +34,7 @@ namespace ADO.NET.Database
             {
                 this.connection.Close();
             }
+
             return this.connection.State == ConnectionState.Closed;
         }
     }
