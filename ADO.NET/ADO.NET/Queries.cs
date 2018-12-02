@@ -10,7 +10,7 @@ namespace ADO.NET
 {
     class Queries
     {
-        string connectionString;
+        string connectionString = ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
 
         SqlConnection connection;
 
@@ -20,28 +20,87 @@ namespace ADO.NET
 
         public Queries()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
-            SqlConnection connection = new SqlConnection(connectionString);
+            connection = new SqlConnection(connectionString);
             connection.Open();
         }
-
-        public void Q1()
+        /// <summary>
+        /// Method that closes connection.
+        /// </summary>
+        public void Close()
         {
-            Console.WriteLine("1.Show all info about the employee with ID 8.");
-            command = connection.CreateCommand();
-            command.CommandText = "SELECT FirstName, LastName, Title, BirthDate, Address, City, Country, HomePhone FROM Employees WHERE EmployeeID=8;";
-            reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", reader["FirstName"], reader["LastName"], reader["Title"], reader["BirthDate"], reader["Address"], reader["City"], reader["Country"], reader["HomePhone"]);
-            }
-            reader.Close();
+            connection.Close();
         }
 
-        public void RunAll()
-        {
-            Q1();
 
+        /// <summary>
+        /// Method that imlements query. 
+        /// </summary>
+        public void AskQuery(int idOfCommand)
+        {
+            string[] commands = new string[36];
+            commands[1] = ("SELECT * FROM Employees WHERE EmployeeID = 8");
+            commands[2] = ("SELECT FirstName,LastName FROM Employees WHERE City = 'London'");
+            commands[3] = ("SELECT FirstName,LastName FROM Employees WHERE FirstName Like 'A%'");
+            commands[4] = ("SELECT" +
+                " FirstName, LastName, Datediff(year, BirthDate, Getdate()) as Age" +
+                " FROM Employees" +
+                " WHERE Datediff(year, BirthDate, Getdate()) > 55;");
+            commands[5] = ("SELECT Count(EmployeeID) as AmountOfLondoners FROM Employees WHERE City = 'London'");
+            commands[6] = ("SELECT" +
+                " Max(Datediff(year, BirthDate, Getdate())) as MaxAge" +
+                ", Avg(Datediff(year, BirthDate, Getdate())) as AvgAge" +
+                ", Min(Datediff(year, BirthDate, Getdate())) as MinAge" +
+                " FROM Employees" +
+                " WHERE City = 'London';");
+            commands[7] = ("SELECT" +
+                " Max(Datediff(year, BirthDate, Getdate())) as MaxAge" +
+                ", Avg(Datediff(year, BirthDate, Getdate())) as AvgAge" +
+                ", Min(Datediff(year, BirthDate, Getdate())) as MinAge" +
+                " FROM Employees" +
+                " GROUP BY City;");
+            commands[8] = ("SELECT" +
+                " Avg(Datediff(year, BirthDate, Getdate())) as AvgAge" +
+                ", City" +
+                " FROM Employees" +
+                " GROUP BY City" +
+                " HAVING Avg(Datediff(year, BirthDate, Getdate())) > 60;");
+            commands[9] = ("SELECT FirstName, LastName FROM Employees" +
+                " WHERE Datediff(year, BirthDate, Getdate()) = (SELECT Max(Datediff(year, BirthDate, Getdate())) FROM Employees)");
+            commands[10] = ("select Customers.ContactName from Customers " +
+                            " where Customers.CustomerID in " +
+                            "(select CustomerID from Orders where OrderID in " +
+                            "(select OrderID from[Order Details] inner join Products on[Order Details].ProductID = Products.ProductID and Products.ProductName = 'Tofu'))");
+            commands[14] = ("SELECT  (FirstName + ' ' + LastName) as Name , Count(Orders.EmployeeID) as OrdersCount FROM Employees " +
+                "left join  Orders on Employees.EmployeeID = Orders.EmployeeID" +
+                " group by(FirstName + ' ' + LastName)");
+            commands[16] = ("SELECT  (FirstName + ' ' + LastName) as Name, Count(Orders.EmployeeID) as OrdersCount FROM Employees " +
+                "left join  Orders on Employees.EmployeeID = Orders.EmployeeID and Orders.RequiredDate > Orders.ShippedDate and(Orders.ShippedDate between '1997-01-01' and '1997-12-31') " +
+                "group by(FirstName + ' ' + LastName)");
+            commands[17] = ("SELECT(Customers.ContactName) as Name, Count(Orders.CustomerID) as OrdersCount FROM Customers " +
+            "inner join Orders on Orders.CustomerID = Customers.CustomerID  and Customers.Country = 'France'" +
+                " group by Customers.ContactName");
+            commands[18] = ("SELECT  (Customers.ContactName) as Name  , Count(Orders.CustomerID) as OrdersCount FROM Customers " +
+                "inner join Orders on Orders.CustomerID = Customers.CustomerID  and Country = 'France'" +
+                " group by Customers.ContactName having Count(Orders.CustomerID) > 1");
+            commands[19] = ("SELECT  (Customers.ContactName) as Name  , Count(Orders.CustomerID) as OrdersCount FROM Customers " +
+                    "inner join Orders on Orders.CustomerID = Customers.CustomerID  and Country = 'France'" +
+                    " group by Customers.ContactName having Count(Orders.CustomerID) > 1");
+            if (idOfCommand >= 1 && idOfCommand <= 36)
+            {
+                SqlCommand command = new SqlCommand(commands[idOfCommand], connection);
+                SqlDataReader reader = command.ExecuteReader();
+                Console.WriteLine("Result:");
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        Console.Write(reader.GetName(i) + ":\t" + reader.GetValue(i));
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                }
+                reader.Close();
+            }
         }
     }
 }
