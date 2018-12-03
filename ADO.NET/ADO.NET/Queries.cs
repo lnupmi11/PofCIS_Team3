@@ -70,6 +70,7 @@ namespace ADO.NET
                             " where Customers.CustomerID in " +
                             "(select CustomerID from Orders where OrderID in " +
                             "(select OrderID from[Order Details] inner join Products on[Order Details].ProductID = Products.ProductID and Products.ProductName = 'Tofu'))";
+            commands[12] = "SELECT FirstName, LastName, BirthDate FROM Employees WHERE Datediff(month, BirthDate, Getdate()) = 0;";
             commands[14] = "SELECT  (FirstName + ' ' + LastName) as Name , Count(Orders.EmployeeID) as OrdersCount FROM Employees " +
                 "left join  Orders on Employees.EmployeeID = Orders.EmployeeID" +
                 " group by(FirstName + ' ' + LastName)";
