@@ -9,7 +9,7 @@
     /// Taxi driver class.
     /// </summary>
     [Serializable]
-    [Table("Orders")]
+    [Table("TaxiDrivers")]
     public class TaxiDriver
     {
         public TaxiDriver()
