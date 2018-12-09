@@ -9,7 +9,13 @@
 
     public class TaxiAppDbContext : DbContext
     {
+        public TaxiAppDbContext()
+            : base("TaxiApp")
+        {
+        }
+
         public DbSet<Order> Orders { get; set; }
+
         public DbSet<TaxiDriver> TaxiDrivers { get; set; }
     }
 }
