@@ -1,11 +1,14 @@
 ﻿namespace WpfApp.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Order class.
     /// </summary>
     [Serializable]
+    [Table("Orders")]
     public class Order
     {
         public Order()
@@ -28,16 +31,27 @@
             this.Status = status;
         }
 
+        [Key]
         public int Id { get; set; }
 
+        [Required]
         public double Price { get; set; }
 
+        [MaxLength(10)]
+        [MinLength(3)]
+        [Required]
         public string Time { get; set; }
 
+        [MaxLength(70)]
+        [Required]
         public string Destination { get; set; }
 
+        [MaxLength(15)]
+        [Required]
         public string Mobile { get; set; }
 
+        [MaxLength(20)]
+        [Required]
         public string Status { get; set; }
 
         /// <summary>

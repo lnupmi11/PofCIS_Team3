@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Taxi driver class.
     /// </summary>
     [Serializable]
+    [Table("Orders")]
     public class TaxiDriver
     {
         public TaxiDriver()
@@ -20,22 +23,29 @@
             this.Id = id;
             this.Name = name;
             this.CountOfOrders = count;
-            this.orderIds = orders;
+            this.OrderIdValues = orders;
         }
 
+        [Key]
         public int Id { get; set; }
 
+        [MaxLength(50)]
+        [MinLength(3)]
+        [Required]
         public string Name { get; set; }
 
+        
+        [Required]
         public int CountOfOrders { get; set; }
 
-        public List<int> orderIds = new List<int>();
+        [Required]
+        public List<int> OrderIdValues = new List<int>();
 
         public string OrderIds
         {
             get
             {
-                return string.Join(", ", this.orderIds);
+                return string.Join(", ", this.OrderIdValues);
             }
         }
 
@@ -46,7 +56,7 @@
         public void AssignOrder(Order or)
         {
             this.CountOfOrders++;
-            this.orderIds.Add(or.Id);
+            this.OrderIdValues.Add(or.Id);
         }
 
         /// <summary>
@@ -59,7 +69,7 @@
             for (int i = 0; i < this.CountOfOrders; i++)
             {
                 s += " ";
-                s += this.orderIds[i];
+                s += this.OrderIdValues[i];
             }
 
             return s;
