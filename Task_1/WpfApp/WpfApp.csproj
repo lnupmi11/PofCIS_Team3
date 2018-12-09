@@ -66,6 +66,8 @@
     <Compile Include="Models\TaxiAppDbContext.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IGenericRepository.cs" />
+    <Compile Include="UOW\IUnitOfWork.cs" />
+    <Compile Include="UOW\UnitOfWork.cs" />
     <Compile Include="Utils\FileManager.cs" />
     <Compile Include="Utils\Seeds.cs" />
     <Compile Include="Utils\Serialization.cs" />
