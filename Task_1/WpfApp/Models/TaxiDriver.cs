@@ -18,7 +18,7 @@
             this.Name = "undefined";
         }
 
-        public TaxiDriver(int id, string name, int count, List<int> orders)
+        public TaxiDriver(int id, string name, int count, string orders)
         {
             this.Id = id;
             this.Name = name;
@@ -39,13 +39,13 @@
         public int CountOfOrders { get; set; }
 
         [Required]
-        public List<int> OrderIdValues = new List<int>();
+        public string OrderIdValues { get; set; }
 
         public string OrderIds
         {
             get
             {
-                return string.Join(", ", this.OrderIdValues);
+                return this.OrderIdValues;
             }
         }
 
@@ -56,7 +56,7 @@
         public void AssignOrder(Order or)
         {
             this.CountOfOrders++;
-            this.OrderIdValues.Add(or.Id);
+            this.OrderIdValues += ", " + or.Id.ToString();
         }
 
         /// <summary>

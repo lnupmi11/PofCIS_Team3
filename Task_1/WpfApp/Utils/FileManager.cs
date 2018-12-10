@@ -81,11 +81,7 @@
                 int id = Convert.ToInt32(taxiDriver[0]);
                 string taxiDriverName = taxiDriver[1];
                 int count = Convert.ToInt32(taxiDriver[2]);
-                List<int> ords = new List<int>();
-                for (int i = 0; i < count; i++)
-                {
-                    ords.Add(Convert.ToInt32(taxiDriver[i + 3]));
-                }
+                string ords = taxiDriver[3];
 
                 this.TaxiDrivers.Add(new TaxiDriver(id, taxiDriverName, count, ords));
             }

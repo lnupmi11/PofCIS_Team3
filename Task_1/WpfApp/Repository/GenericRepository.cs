@@ -7,6 +7,7 @@
     using System.Linq.Expressions;
     using WpfApp.Models;
 
+
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
@@ -50,6 +51,18 @@
         public virtual void Insert(TEntity entity)
         {
             this.DbSet.Add(entity);
+        }
+
+        public virtual void UpdateList(List<TEntity> entity)
+        {
+            for (int i = 0; i < entity.Count; i++)
+            {
+                this.DbSet.Attach(entity[i]);
+                this.Context.Entry(entity[i]).State = EntityState.Modified;
+
+            }
+
+            this.Context.SaveChanges();
         }
 
         public virtual void Delete(object id)

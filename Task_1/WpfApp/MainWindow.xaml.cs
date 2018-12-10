@@ -8,7 +8,7 @@
     using Microsoft.Win32;
     using WpfApp.Models;
     using WpfApp.Utils;
-
+    using WpfApp.UOW;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -43,17 +43,28 @@
         /// <param name="e">RoutedEventArgs.</param>
         private void OnOpenDriversClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+            var unit = new UnitOfWork();
+
+            this.drivers = unit.Drivers.Get().ToList();
+            this.UpdateDriversUI();
+            if (this.drivers.Count != 0)
             {
-                this.drivers = (List<TaxiDriver>)Serialization.DeserializeDrivers(openFileDialog.FileName);
-                this.UpdateDriversUI();
-                if (this.drivers.Count != 0)
-                {
-                    this.selectedTaxiDriver = this.drivers.First();
-                    this.UpdateSelectedDriverUI();
-                }
+                this.selectedTaxiDriver = this.drivers.First();
+                this.UpdateSelectedDriverUI();
             }
+            this.orders = unit.Orders.Get().ToList();
+            this.UpdateOrdersUI();
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //if (openFileDialog.ShowDialog() == true)
+            //{
+            //    this.drivers = (List<TaxiDriver>)Serialization.DeserializeDrivers(openFileDialog.FileName);
+            //    this.UpdateDriversUI();
+            //    if (this.drivers.Count != 0)
+            //    {
+            //        this.selectedTaxiDriver = this.drivers.First();
+            //        this.UpdateSelectedDriverUI();
+            //    }
+            //}
         }
 
         /// <summary>
@@ -63,13 +74,16 @@
         /// <param name="e">RoutedEventArgs.</param>
         private void OnSaveDriversClick(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "XML file (*.xml) | *.xml";
+            var unit = new UnitOfWork();
+            unit.Drivers.UpdateList(this.drivers);
+            unit.Orders.UpdateList(this.orders);
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.Filter = "XML file (*.xml) | *.xml";
 
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                Serialization.Serialize(saveFileDialog.FileName, this.drivers);
-            }
+            //if (saveFileDialog.ShowDialog() == true)
+            //{
+            //    Serialization.Serialize(saveFileDialog.FileName, this.drivers);
+            //}
         }
 
         /// <summary>

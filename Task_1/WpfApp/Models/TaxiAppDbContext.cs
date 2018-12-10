@@ -10,7 +10,7 @@
     public class TaxiAppDbContext : DbContext
     {
         public TaxiAppDbContext()
-            : base("TaxiApp")
+            : base("TaxiApp3")
         {
         }
 
