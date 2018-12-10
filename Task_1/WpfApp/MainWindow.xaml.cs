@@ -44,7 +44,6 @@
         private void OnOpenDriversClick(object sender, RoutedEventArgs e)
         {
             var unit = new UnitOfWork();
-
             this.drivers = unit.Drivers.Get().ToList();
             this.UpdateDriversUI();
             if (this.drivers.Count != 0)
@@ -74,9 +73,7 @@
         /// <param name="e">RoutedEventArgs.</param>
         private void OnSaveDriversClick(object sender, RoutedEventArgs e)
         {
-            var unit = new UnitOfWork();
-            unit.Drivers.UpdateList(this.drivers);
-            unit.Orders.UpdateList(this.orders);
+            
             //SaveFileDialog saveFileDialog = new SaveFileDialog();
             //saveFileDialog.Filter = "XML file (*.xml) | *.xml";
 
@@ -158,7 +155,9 @@
                 if (selectedOrder.Status == "not assigned")
                 {
                     this.selectedTaxiDriver.AssignOrder(selectedOrder);
-
+                    var unit = new UnitOfWork();
+                    unit.Drivers.UpdateList(this.drivers);
+                    unit.Orders.UpdateList(this.orders);
                     selectedOrder.Status = "already assigned";
 
                     this.UpdateDriversUI();
@@ -200,7 +199,9 @@
                 this.selectedTaxiDriver.AssignOrder(freeOrder);
 
                 freeOrder.Status = "already assigned";
-
+                var unit = new UnitOfWork();
+                unit.Drivers.UpdateList(this.drivers);
+                unit.Orders.UpdateList(this.orders);
                 this.UpdateDriversUI();
                 this.UpdateSelectedDriverUI();
                 this.UpdateOrdersUI();

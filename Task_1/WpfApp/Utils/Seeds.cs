@@ -58,14 +58,14 @@
                 new Order(2, 120, "17hr 00min", "Vynnyky", "+83234", "not assigned"),
                 new Order(3, 120, "14hr 23min", "Heroyiv UPA 72", "+52342", "not assigned"),
             };
-            using (TaxiAppDbContext db = new TaxiAppDbContext())
-            {
-                foreach (var it in init_orders)
-                {
-                    db.Orders.Add(it);
-                }
-                db.SaveChanges();
-            }
+            //using (TaxiAppDbContext db = new TaxiAppDbContext())
+            //{
+            //    foreach (var it in init_orders)
+            //    {
+            //        db.Orders.Add(it);
+            //    }
+            //    db.SaveChanges();
+            //}
 
             ordersArr.AddRange(init_orders);
         }
